@@ -2,14 +2,12 @@ package config
 
 import (
 	"fmt"
-	"os"
-	"path"
-	"runtime"
 
 	"github.com/spf13/viper"
 )
 
 var GOPATH string
+var configPath string
 
 func init() {
 	fmt.Println("init config")
@@ -23,7 +21,7 @@ func init() {
 	viper.SetDefault("log_file", fmt.Sprintf("%s/src/oldcode.org/webplay/log.txt", GOPATH))
 	viper.SetDefault("db_file", fmt.Sprintf("%s/src/oldcode.org/webplay/database.db", GOPATH))
 
-	read_settings()
+	//read_settings()
 }
 
 func Get(name string) string {
@@ -38,28 +36,30 @@ func GetInt(name string) int {
 	return viper.GetInt(name)
 }
 
-func read_settings() {
-	_, err := os.Getwd()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+func SetDir(path string) {
+	configPath = path
+}
 
-	_, filename, _, ok := runtime.Caller(1)
-	if !ok {
-		panic("error finding settings file")
-	}
-
-	fmt.Println(filename)
-	filepath := path.Dir(path.Join(filename, ".."))
-	fmt.Println(filepath)
+func Read() {
+	//_, err := os.Getwd()
+	//if err != nil {
+	//	fmt.Println(err)
+	//	os.Exit(1)
+	//}
+	//_, filename, _, ok := runtime.Caller(1)
+	//if !ok {
+	//	panic("error finding settings file")
+	//}
+	//fmt.Println(filename)
+	//filepath := path.Dir(path.Join(filename, ".."))
+	//fmt.Println(filepath)
+	viper.AddConfigPath(configPath)
 
 	viper.SetConfigName("settings")
-	viper.AddConfigPath(filepath)
 
-	err = viper.ReadInConfig()
+	err := viper.ReadInConfig()
 	if err != nil {
-		panic("error finding settings file")
+		panic("error finding settings file 2")
 	}
 	template_dir := viper.GetString("template_dir")
 	fmt.Printf("template_dir: %s\n", template_dir)
