@@ -28,6 +28,7 @@ func init() {
 	viper.SetDefault("work_dir", fmt.Sprintf("%s/work", baseDir))
 	viper.SetDefault("log_file", fmt.Sprintf("%s/log.txt", baseDir))
 	viper.SetDefault("db_file", fmt.Sprintf("%s/database.db", baseDir))
+	viper.SetDefault("pongo2_debug", true)
 }
 
 func Get(name string) string {
