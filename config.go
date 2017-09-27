@@ -19,7 +19,6 @@ func init() {
 	if err != nil {
 		panic(fmt.Errorf("config.init() err:%s", err))
 	}
-	//fmt.Printf("baseDir:%s\n", baseDir)
 
 	viper.AddConfigPath(baseDir)
 	// this came up in testing.  this package can load from anywhere (pwd speaking)
@@ -27,7 +26,6 @@ func init() {
 	viper.SetConfigName("settings")
 	read()
 
-	//fmt.Printf("baseDir2:%s\n", baseDir)
 	viper.SetDefault("template_dir", fmt.Sprintf("%s/template", baseDir))
 	viper.SetDefault("static_dir", fmt.Sprintf("%s/static", baseDir))
 	viper.SetDefault("work_dir", fmt.Sprintf("%s/work", baseDir))
@@ -53,8 +51,5 @@ func read() {
 	if err != nil {
 		panic(fmt.Errorf("config.Read() err:%s", err))
 	}
-	//fmt.Printf("config:%s\n", viper.ConfigFileUsed())
-	//fmt.Printf("config:%s\n", path.Dir(viper.ConfigFileUsed()))
 	baseDir = path.Dir(viper.ConfigFileUsed())
-	//fmt.Printf("baseDir3:%s\n", baseDir)
 }
