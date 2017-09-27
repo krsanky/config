@@ -36,10 +36,6 @@ func init() {
 	viper.SetDefault("pongo2_debug", true)
 }
 
-func settingsDir() string {
-	return "asd"
-}
-
 func Get(name string) string {
 	return viper.GetString(name)
 }
